@@ -87,7 +87,6 @@ let exchangeRateAUD = rates.AUD
 let hundredEurosToAUD = exchangeRateAUD * 100
 console.log(hundredEurosToAUD)
 
-
 /* c. Use this JavaScript array of objects of cat owners, and their cats. Source, moderncat.com
  */
 
@@ -112,24 +111,24 @@ cats_and_owners.forEach( function ( catAndOwner) { // catAndOwner = one object i
     console.log(`${owner}'s cat is called ${cat}`)
 })
 
+// print Gary Oldman's cat's name by reading the data in the appropriate array index, using [] notation
+let garyOldmanCat = cats_and_owners[1].cat
+console.log(`Gary Oldman's cat is called ${garyOldmanCat}`)
 
-
-
-// TODO print Gary Oldman's cat's name by reading the data in the appropriate array index, using [] notation
-// TODO print Gary Oldman's cat's name by looping over the array until you find the object with name = "Gary Oldman"
+// print Gary Oldman's cat's name by looping over the array until you find the object with name = "Gary Oldman"
+cats_and_owners.forEach( function ( catAndOwner) { // catAndOwner = one object in array
+    let owner = catAndOwner.name
+    let cat = catAndOwner.cat
+    if (owner === 'Gary Oldman') {
+        console.log(`Gary Oldman's cat is called ${cat}`)
+    }
+})
 
 
 
 /* d. Use the following JSON object, describing the Nobel Prize winners in 2017.
 Source http://api.nobelprize.org/v1/prize.json?year=2017
 * */
-
-// TODO print the full name of the Literature Nobel laureate.
-// TODO print the ids of each of the Physics Nobel laureates. Your code should still work without modification if a laureate was added, or removed.
-// TODO write code to print the names of all of the prize categories (So your output would start physics, chemistry, medicine... ).
-// TODO write code to print the total number of prize categories
-// TODO write code to count the total number of laureates from 2017.
-//   have a good look at how the JSON is structured, and think about what loop(s) you'll need to write.
 
 
 let nobel_prize_winners_2017 = {
@@ -256,3 +255,47 @@ let nobel_prize_winners_2017 = {
         }
     ]
 }
+
+// print the full name of the Literature Nobel laureate.
+let firstNameOfLiteratureNobelLaureate = nobel_prize_winners_2017.prizes[3].laureates[0].firstname
+let surNameOfLiteratureNobelLaureate = nobel_prize_winners_2017.prizes[3].laureates[0].surname
+console.log(`\nFull name of Literature Nobel laureate: ${firstNameOfLiteratureNobelLaureate} ${surNameOfLiteratureNobelLaureate}`)
+
+// print the ids of each of the Physics Nobel laureates. Your code should still work without modification if a laureate was added, or removed.
+let physicsLaureatesArray = nobel_prize_winners_2017.prizes[0].laureates
+console.log('\nPhysics Nobel laureates ids: ')
+physicsLaureatesArray.forEach( function ( laureates ) {
+    let id = laureates.id
+    console.log(id)
+})
+
+// write code to print the names of all the prize categories (So your output would start physics, chemistry, medicine... ).
+let prizesArray = nobel_prize_winners_2017.prizes
+console.log('\nPrize categories: ')
+prizesArray.forEach( function ( prize ) {
+    let prizeCategory = prize.category
+    console.log(prizeCategory)
+})
+
+// write code to print the total number of prize categories
+let prizeCategoryCount = prizesArray.length
+console.log(`\nTotal prize categories: ${prizeCategoryCount}`)
+
+// write code to count the total number of laureates from 2017.
+//   have a good look at how the JSON is structured, and think about what loop(s) you'll need to write.
+
+// use the prizesArray from above - it's an array of objects - each object represents a different prize category
+// and has a certain amount of laureates for each category
+// each object contains a laureates array
+// can loop over prizesArray of prize categories and get the length of each laureates array per category
+
+let laureatesTotal = 0
+
+// loop over each prize category and get length of laureates array per category
+prizesArray.forEach( function ( prizeCategory ) {
+    let laureatesArray = prizeCategory.laureates
+    let laureatesInArray = laureatesArray.length
+    laureatesTotal = laureatesTotal + laureatesInArray
+})
+
+console.log(`\nThere are ${laureatesTotal} laureates from 2017`)
