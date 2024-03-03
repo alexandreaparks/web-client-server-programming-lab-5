@@ -57,7 +57,7 @@
 <h2>Order Summary</h2>
 
 <p id="order-summary">
-    <!-- TODO Use JavaScript to display the order information,
+    <!-- Use JavaScript to display the order information,
         only if all the required information is entered  -->
 </p>
 
@@ -70,9 +70,9 @@
     let homeownerStreetNameInput = document.querySelector('#homeowner-street-name')
     let treeTypeSelect = document.querySelector('#tree-type')
 
-    // TODO create a variable for city input element
-    let homeownerCityInput = document.querySelector('#zipcode')
-    // TODO create a variable for zip code input element
+    // create a variable for city input element
+    let homeownerCityInput = document.querySelector('#city')
+    // create a variable for zip code input element
     let homeownerZipcodeInput = document.querySelector('#zipcode')
 
     let submitButton = document.querySelector('#submit-order')
@@ -86,21 +86,17 @@
         let streetName = homeownerStreetNameInput.value
         let treeType = treeTypeSelect.value
 
-        // TODO get the value from the input#city
-        // TODO get the value from the input#zipcode
+        // get the value from the input #city
+        let city = homeownerCityInput.value
+        // get the value from the input #zipcode
+        let zipcode = homeownerZipcodeInput.value
 
-        // TODO Validate that all six input and select elements have been completed
+        // Validate that all six input and select elements have been completed
         //  - check they all have a value
 
-        // TODO Validate the zipcode is in the range 55001 and 56763.
+        // Validate the zipcode is in the range 55001 and 56763.
         // to check that the zip code is in Minnesota.
         // Make sure your script doesn't accept non-numeric input for the zip code.
-
-        // Optional extra: add the class .error to any inputs with an error (and only inputs with an error)
-        // to give the user visual feedback for which inputs need to be fixed or completed.
-        // There's a style for input.error and select.error defined in the styles (in the head)
-        // which will be applied if you give the class .error to any elements on the page.
-        // Make sure you remove this class when the form is completed correctly.
 
         let errors = []
 
@@ -108,14 +104,66 @@
         // add an error message to the errors array. (Hint: use push to add to the end of the array)
         // Add one error message for each problem with the form.
 
+        if (!name) {
+            errors.push('Enter student name')
+        }
 
-        // TODO - If there are any errors after checking all of the input elements,
-        // display an alert with all of the error messages. (Hint: use join)
+        if (!houseNumber) {
+            errors.push('Enter house number')
+        }
+
+        if (!streetName) {
+            errors.push('Enter street name')
+        }
+
+        if (!treeType) {
+            errors.push('Enter tree type')
+        }
+
+        if (!city) {
+            errors.push('Enter city')
+        }
+
+        if (!zipcode) {
+            errors.push('Enter a zipcode')
+        }
+
+        // boolean function used to validate that zipcode is a numeric value within range
+        function isMinnesotaZip(code) {
+            // all MN zip are between 55001 - 56763
+            if (code >= 55001 && code <= 56763) {
+                return true
+            } else {
+                return false
+            }
+        }
+
+        if (!isMinnesotaZip(zipcode)) {  // if isMinnesotaZip() returns false
+            errors.push('Zipcode should be a number between 55001 and 56763')
+        }
+
+
+        // If there are any errors after checking all the input elements,
+        // display an alert with all the error messages. (Hint: use join)
         // and then return from this function to prevent further processing
 
 
-        // TODO - If there are no errors, use a template string to display an order
+        // If there are no errors, use a template string to display an order
         // summary in the order summary paragraph.
+
+
+        if (errors.length > 0) {
+            let errorMessage = errors.join('\n')
+            alert(errorMessage)
+            return
+        }
+
+        let orderSummaryParagraph = document.querySelector('#order-summary')
+        orderSummaryParagraph.innerHTML = `${name}
+        ${houseNumber} ${streetName}
+        ${city}, MN ${zipcode}
+        Tree Type: ${treeType}`
+
 
 
     })
