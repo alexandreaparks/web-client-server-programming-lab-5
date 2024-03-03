@@ -82,7 +82,7 @@ console.log(rates)
 //  then calculate the equivalent value in Australian Dollars (AUD)
 
 let exchangeRateAUD = rates.AUD
-console.log(exchangeRateAUD)
+// console.log(exchangeRateAUD)
 
 let hundredEurosToAUD = exchangeRateAUD * 100
 console.log(hundredEurosToAUD)
